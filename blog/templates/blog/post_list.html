@@ -1,27 +1,44 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
 <html>
     <head>
         <title>Tutorial leaflet.js</title>
        <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />-->
         <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
     </head>
     <body>
         <h1>Leaflet.js Demo with django view</h1>
-        <div>
-    <h1><a href="/">Django Girls Blog</a></h1>
-</div>
-        {% for post in posts %}
-            <div>
-                <p> publicado: {{ post.published_date }}</p>
-                <h2><a href="">{{ post.title }}</a></h2>
-                <p>{{ post.text|linebreaksbr }}</p>
+        <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        <div class="page-header">
+           <h1><a href="/">Django Girls Blog</a></h1>
+        </div>
+       
+        {% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
             </div>
-        {% endfor %}
+            <h2><a href="">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+       {% endfor %}
+{% endblock %}
 
         <div id="map" style="height: 100%"></div>
-        <!--<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>-->
-        <script src="//cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+       
+
+    
+
     </body>
+     <!--<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>-->
+        <script src="//cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
     <script>
           var map = L.map('map').setView([19.4978,-99.1269],5);
 
